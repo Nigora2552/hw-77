@@ -1,17 +1,18 @@
-import {Button, Container, Grid, TextField} from "@mui/material";
+import {Button, CircularProgress, Container, Grid, TextField} from "@mui/material";
 import React, {useState} from "react";
-import type {MessageMutation} from "../../../types";
 import FileInput from "../UI/FileInput/FileInput.tsx";
+import type {MessageMutation} from "../../types";
 
 interface Props {
     onSubmit: (item: MessageMutation) => void;
+    loading?: boolean;
 }
 
-const Form: React.FC<Props> = ({onSubmit}) => {
+const Form: React.FC<Props> = ({onSubmit,loading}) => {
     const [form, setForm] = useState<MessageMutation>({
         author: '',
         message: '',
-        image: null
+        image: null,
     });
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +35,6 @@ const Form: React.FC<Props> = ({onSubmit}) => {
 
     const SubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
 
         onSubmit(form)
     };
@@ -73,7 +73,8 @@ const Form: React.FC<Props> = ({onSubmit}) => {
                         />
                     </Grid>
                 </Grid>
-                <Button type='submit' variant="outlined"> Add</Button>
+                <Button disabled={loading} type='submit' variant="outlined"> Add</Button>
+                {loading && <CircularProgress/>}
             </form>
         </Container>
     );

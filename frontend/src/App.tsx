@@ -1,13 +1,22 @@
-
 import './App.css'
+import Form from "./components/Form/Form.tsx";
+import {useAppDispatch} from "./app/hooks.ts";
+import type {MessageMutation} from "./types";
+import {addMessage} from "./app/messagesSlice.ts";
 
 function App() {
+    const dispatch = useAppDispatch();
 
-  return (
-    <>
+    const onSubmit = async (item: MessageMutation) =>{
+       await dispatch(addMessage(item))
+    }
 
-    </>
-  )
+
+    return (
+        <>
+            <Form onSubmit={onSubmit}/>
+        </>
+    )
 }
 
 export default App
