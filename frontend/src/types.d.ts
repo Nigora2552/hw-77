@@ -1,4 +1,5 @@
 export interface IMessages{
+    id: string;
     author: '',
     message: '',
     image: string | null;

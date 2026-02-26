@@ -1,6 +1,7 @@
 import type {IMessages, MessageMutation} from "../types";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axiosApi from "../axiosApi.ts";
+import type {RootState} from "./store.ts";
 
 interface MessagesState {
     items: IMessages[];
@@ -11,6 +12,10 @@ const initialState: MessagesState = {
     items: [],
     loading: false,
 }
+
+export  const messagesSelector = (state: RootState) => state.message.items;
+export  const loadingSelector = (state: RootState) => state.message.loading;
+
 
 export const messageSlice = createSlice({
     name: 'message',

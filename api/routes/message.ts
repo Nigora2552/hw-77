@@ -6,8 +6,9 @@ import {imagesUpload} from "../multer";
 
 const messagesRouter = express.Router();
 
-messagesRouter.get('/', (req: Request, res: Response) => {
-
+messagesRouter.get('/', async (req: Request, res: Response) => {
+    const messages = await messageDb.getMessage();
+    res.send(messages);
 });
 
 messagesRouter.post('/', imagesUpload.single('image'), async (req: Request, res: Response) => {
@@ -17,7 +18,7 @@ messagesRouter.post('/', imagesUpload.single('image'), async (req: Request, res:
         res.status(400).send({error: 'Message invalid'});
     }
     const newMessage = {
-        author,
+        author: author || 'Anonymous',
         message,
         image: req.file ? 'images/' + req.file.filename : null,
     }

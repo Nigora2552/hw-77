@@ -8,7 +8,7 @@ interface Props {
     loading?: boolean;
 }
 
-const Form: React.FC<Props> = ({onSubmit,loading}) => {
+const Form: React.FC<Props> = ({onSubmit, loading}) => {
     const [form, setForm] = useState<MessageMutation>({
         author: '',
         message: '',
@@ -25,7 +25,8 @@ const Form: React.FC<Props> = ({onSubmit,loading}) => {
 
     const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, files} = e.target;
-        if(files){
+
+        if (files) {
             setForm(prevState => ({
                 ...prevState,
                 [name]: files[0]
@@ -36,7 +37,15 @@ const Form: React.FC<Props> = ({onSubmit,loading}) => {
     const SubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        onSubmit(form)
+        if (form.message.trim().length > 0) {
+            onSubmit(form)
+        }
+        setForm({
+            author: '',
+            message: '',
+            image: null
+        })
+
     };
 
 
